@@ -1,326 +1,244 @@
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Le Labyrinthe du Minotaure</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Le Labyrinthe du Minotaure</title>
 
-  <style>
-    body {
-      margin: 0;
-      background: #15120f;
-      color: #e8d8b5;
-      font-family: Georgia, serif;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      box-sizing: border-box;
-    }
+    <style>
+        body {
+            background-color: #211b15;
+            color: #f1d9a8;
+            font-family: Georgia, serif;
+            padding: 30px;
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.8;
+        }
 
-    main {
-      max-width: 700px;
-      width: 100%;
-      border: 1px solid #725b3b;
-      background: #211b15;
-      padding: 35px;
-      box-sizing: border-box;
-      box-shadow: 0 0 40px #000;
-    }
+        h1 {
+            color: #d6a85c;
+            text-align: center;
+        }
 
-    h1 {
-      color: #d6a85c;
-      text-align: center;
-      font-size: 2rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-    }
+        h2 {
+            color: #d6a85c;
+        }
 
-    h2 {
-      color: #d6a85c;
-      border-bottom: 1px solid #725b3b;
-      padding-bottom: 10px;
-    }
+        .indice {
+            color: #c49c68;
+            font-style: italic;
+        }
 
-    p {
-      line-height: 1.8;
-      font-size: 1.1rem;
-    }
-
-    .indice {
-      color: #a99a7e;
-      font-style: italic;
-      margin-top: 30px;
-    }
-
-    .danger {
-      color: #d66b53;
-    }
-
-    .victoire {
-      color: #b9df9b;
-      text-align: center;
-      font-size: 1.4rem;
-    }
-
-    .adresse {
-      background: #100d0a;
-      padding: 12px;
-      border-left: 3px solid #d6a85c;
-      overflow-wrap: anywhere;
-      color: #f1c879;
-    }
-
-    @media (max-width: 600px) {
-      main {
-        padding: 22px;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-      }
-    }
-  </style>
+        .adresse {
+            background: #100d0a;
+            padding: 15px;
+            color: #f1c879;
+            overflow-wrap: anywhere;
+        }
+    </style>
 </head>
 
 <body>
 
-<main>
-  <h1>Le Labyrinthe du Minotaure</h1>
-  <div id="jeu"></div>
-</main>
+<h1>LE LABYRINTHE DU MINOTAURE</h1>
+
+<div id="jeu"></div>
 
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const salle = params.get("salle");
-  const cle = params.get("cle");
-  const direction = params.get("direction");
-  const code = params.get("code");
-  const sortie = params.get("sortie");
 
-  const jeu = document.getElementById("jeu");
+let url = new URLSearchParams(window.location.search);
 
-  function afficher(titre, texte) {
+let salle = url.get("salle");
+let cle = url.get("cle");
+let direction = url.get("direction");
+
+let jeu = document.getElementById("jeu");
+
+
+// INTRODUCTION
+
+if (salle == null) {
+
     jeu.innerHTML = `
-      <h2>${titre}</h2>
-      ${texte}
+        <h2>Le réveil</h2>
+
+        <p>Tu ouvres les yeux.</p>
+
+        <p>Tu es prisonnier d'un immense labyrinthe
+        de pierre.</p>
+
+        <p>Au loin, tu entends un rugissement.</p>
+
+        <p>Le Minotaure est réveillé !</p>
+
+        <p>Une inscription apparaît sur le mur :</p>
+
+        <p class="indice">
+        "Pour entrer dans le labyrinthe,
+        ajoute salle=1 à ton adresse."
+        </p>
+
+        <p>Modifie l'adresse de ton navigateur
+        pour commencer l'aventure.</p>
+
+        <p class="adresse">?salle=1</p>
     `;
-  }
 
-  function indice(texte) {
-    return `<p class="indice">Indice : ${texte}</p>`;
-  }
+}
 
-  // INTRODUCTION
-  if (!salle) {
-    afficher("Le réveil", `
-      <p>Tu ouvres les yeux.</p>
 
-      <p>Tu es au cœur d'un immense labyrinthe de pierre.
-      Une odeur de terre humide flotte dans l'air.</p>
+// SALLE 1
 
-      <p>Au loin, un rugissement fait trembler les murs.</p>
+else if (salle == "1") {
 
-      <p>Le Minotaure est réveillé.</p>
+    jeu.innerHTML = `
+        <h2>SALLE 1 : LA TORCHE</h2>
 
-      <p>Une inscription apparaît sur la pierre :</p>
+        <p>Tu arrives devant une immense porte.</p>
 
-      <p class="adresse">
-        « Pour avancer, change le chemin de ton adresse.
-        Le premier nombre est 1. »
-      </p>
+        <p>Une inscription est gravée dans la pierre :</p>
 
-      <p>Tu dois modifier l'adresse de cette page.
-      Ajoute <strong>?salle=1</strong> à la fin de l'URL.</p>
+        <p class="indice">
+        "Je brille dans la nuit.<br>
+        Je dévore le bois.<br>
+        Sans moi, impossible de voir dans le noir.<br>
+        Qui suis-je ?"
+        </p>
 
-      <p>Ne clique sur rien. Le labyrinthe n'obéit qu'à
-      ceux qui savent lire les chemins.</p>
-    `);
-  }
+        <p>Tu dois trouver le mot secret.</p>
 
-  // SALLE 1
-  else if (salle === "1") {
-    afficher("Salle 1 — La porte des anciens", `
-      <p>Tu arrives devant une porte couverte de symboles.</p>
+        <p>Pour avancer, modifie ton adresse :</p>
 
-      <p>Une inscription dit :</p>
+        <p class="adresse">
+        ?salle=2&cle=...
+        </p>
 
-      <p>« Je brille dans la nuit.
-      Je dévore le bois.
-      Sans moi, les héros ne voient rien. »</p>
+        <p>Remplace les trois points par ta réponse,
+        en minuscules.</p>
+    `;
 
-      <p>Une petite clé est dessinée sous l'inscription.</p>
+}
 
-      <p>Pour ouvrir la porte, ajoute une clé à ton URL :</p>
 
-      <p class="adresse">
-        &cle=...
-      </p>
+// SALLE 2 AVEC LA BONNE CLE
 
-      <p>Remplace les trois points par la réponse,
-      en minuscules et sans accent.</p>
-    `);
+else if (salle == "2" && cle == "torche") {
 
-  }
+    jeu.innerHTML = `
+        <h2>SALLE 2 : LE CARREFOUR</h2>
 
-  // SALLE 2
-  else if (salle === "2" && cle === "torche") {
-    afficher("Salle 2 — Le carrefour", `
-      <p>La porte s'ouvre.</p>
+        <p>La porte s'ouvre !</p>
 
-      <p>Tu arrives à un carrefour. Trois passages
-      s'enfoncent dans l'obscurité.</p>
+        <p>Tu arrives devant trois chemins.</p>
 
-      <p>Sur le mur, tu lis :</p>
+        <p>Une inscription indique :</p>
 
-      <p>« Le soleil se lève à l'est.
-      Mais les héros grecs cherchent la sortie
-      là où le soleil se couche. »</p>
+        <p class="indice">
+        "Le soleil se lève à l'est.<br>
+        Il se couche à l'ouest.<br>
+        C'est de ce côté que se trouve la sortie."
+        </p>
 
-      <p>Tu dois choisir une direction.</p>
+        <p>Tu dois choisir la bonne direction.</p>
 
-      <p class="adresse">
-        &direction=...
-      </p>
+        <p>Modifie ton adresse :</p>
 
-      <p>Ajoute la direction dans ton URL.
-      Écris-la en minuscules.</p>
-    `);
-  }
+        <p class="adresse">
+        ?salle=3&cle=torche&direction=...
+        </p>
 
-  // MAUVAISE CLE
-  else if (salle === "2") {
-    afficher("La porte reste fermée", `
-      <p class="danger">La clé ne correspond pas.</p>
+        <p>Remplace les trois points par la direction
+        que tu as trouvée.</p>
+    `;
 
-      <p>La porte reste immobile.
-      Tu entends le Minotaure approcher.</p>
+}
 
-      <p>Retourne à la première salle et cherche
-      la bonne réponse.</p>
-    `);
-  }
 
-  // SALLE 3
-  else if (salle === "3" &&
-           cle === "torche" &&
-           direction === "ouest") {
-    afficher("Salle 3 — Les ossements", `
-      <p>Tu prends le passage de l'ouest.</p>
+// SALLE 2 AVEC UNE MAUVAISE CLE
 
-      <p>Dans une salle poussiéreuse, tu trouves
-      un squelette et une inscription :</p>
+else if (salle == "2") {
 
-      <p>« Le Minotaure est moitié homme,
-      moitié taureau.</p>
+    jeu.innerHTML = `
+        <h2>PORTE FERMEE !</h2>
 
-      <p>Combien de têtes possède-t-il ? »</p>
+        <p>La clé ne fonctionne pas.</p>
 
-      <p>Un code est nécessaire pour continuer.</p>
+        <p class="indice">
+        Le Minotaure approche...
+        </p>
 
-      <p class="adresse">
-        &code=...
-      </p>
+        <p>Retourne à la salle 1 et cherche
+        la bonne réponse.</p>
+    `;
 
-      <p>Ajoute le nombre de têtes à ton URL.</p>
-    `);
-  }
+}
 
-  // MAUVAISE DIRECTION
-  else if (salle === "3") {
-    afficher("Un cul-de-sac", `
-      <p class="danger">Tu t'es trompé de chemin.</p>
 
-      <p>Le passage se termine sur un mur.
-      Tu dois retrouver le bon carrefour.</p>
-    `);
-  }
+// SALLE 3 : VICTOIRE
 
-  // SALLE 4
-  else if (salle === "4" &&
-           cle === "torche" &&
-           direction === "ouest" &&
-           code === "1") {
-    afficher("Salle 4 — Le miroir", `
-      <p>Un miroir géant se dresse devant toi.</p>
+else if (
+    salle == "3" &&
+    cle == "torche" &&
+    direction == "ouest"
+) {
 
-      <p>Une voix murmure :</p>
+    jeu.innerHTML = `
+        <h2>BRAVO ! TU ES LIBRE !</h2>
 
-      <p>« Tu as trouvé la torche.
-      Tu as choisi l'ouest.
-      Tu connais le nombre de têtes.</p>
+        <p>Tu as trouvé le bon chemin.</p>
 
-      <p>Mais pour sortir, tu dois comprendre
-      le dernier mot. »</p>
+        <p>Une immense porte s'ouvre devant toi.</p>
 
-      <p>Le mot est :</p>
+        <p>Tu entends le Minotaure rugir derrière toi,
+        mais il est trop tard !</p>
 
-      <p class="adresse">LIBERTÉ</p>
+        <p>Tu as réussi à sortir du labyrinthe !</p>
 
-      <p>Ajoute le mot sans accent à ton URL :</p>
+        <h2>FELICITATIONS, HEROS !</h2>
+    `;
 
-      <p class="adresse">
-        &sortie=...
-      </p>
-    `);
-  }
+}
 
-  // MAUVAIS CODE
-  else if (salle === "4") {
-    afficher("Le miroir se brise", `
-      <p class="danger">Le code est incorrect.</p>
 
-      <p>Le miroir se fissure.
-      Tu dois reprendre les indices précédents.</p>
-    `);
-  }
+// MAUVAISE DIRECTION
 
-  // SALLE 5 - VICTOIRE
-  else if (salle === "5" &&
-           cle === "torche" &&
-           direction === "ouest" &&
-           code === "1" &&
-           sortie === "liberte") {
-    afficher("La sortie", `
-      <p class="victoire">TU ES LIBRE !</p>
+else if (salle == "3") {
 
-      <p>La porte s'ouvre lentement.</p>
+    jeu.innerHTML = `
+        <h2>IMPASSE !</h2>
 
-      <p>Le Minotaure pousse un dernier rugissement,
-      mais tu es déjà dehors.</p>
+        <p>Tu as pris le mauvais chemin.</p>
 
-      <p>Tu as réussi à traverser le labyrinthe
-      en manipulant l'adresse du site.</p>
+        <p>Un mur bloque ton passage.</p>
 
-      <p class="victoire">
-        Bravo, héros d'Athènes !
-      </p>
-    `);
-  }
+        <p>Le Minotaure se rapproche...</p>
 
-  // MAUVAIS MOT FINAL
-  else if (salle === "5") {
-    afficher("La sortie est scellée", `
-      <p class="danger">Le mot de passe est incorrect.</p>
+        <p>Retourne au carrefour et réfléchis
+        à la bonne direction.</p>
+    `;
 
-      <p>La porte ne s'ouvre pas.
-      Vérifie ton URL et les indices du miroir.</p>
-    `);
-  }
+}
 
-  // SALLE INCONNUE
-  else {
-    afficher("Un mur de pierre", `
-      <p>Tu arrives devant un mur sans inscription.</p>
 
-      <p>Cette salle n'existe pas,
-      ou tu as oublié un élément de ton adresse.</p>
+// SALLE INCONNUE
 
-      <p>Le labyrinthe n'aime pas les erreurs.</p>
-    `);
-  }
+else {
+
+    jeu.innerHTML = `
+        <h2>UN MUR DE PIERRE</h2>
+
+        <p>Tu es perdu dans le labyrinthe.</p>
+
+        <p>Cette salle n'existe pas.</p>
+
+        <p>Vérifie ton adresse.</p>
+    `;
+
+}
+
 </script>
 
 </body>
